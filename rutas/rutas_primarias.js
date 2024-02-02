@@ -20,7 +20,7 @@ const storage = multer.diskStorage({
 const newupload = multer({ storage: storage })
 //--------------------conneccion a elephant sql-------------------------------------\\
 var conString = "postgres://zfgcmckh:QpXviRZLMhu2uuXUYJWrhCeuUarj2Ud-@motty.db.elephantsql.com/zfgcmckh" //Can be found in the Details page
-var pool = new postgres.Pool(conString);
+var pool = new postgres.Client(conString);
 
 //-----------------------------------------------------------------------------------//
 
