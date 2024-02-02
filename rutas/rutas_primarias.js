@@ -18,21 +18,20 @@ const storage = multer.diskStorage({
     }
   })
 const newupload = multer({ storage: storage })
+//--------------------conneccion a elephant sql-------------------------------------\\
+var conString = "postgres://zfgcmckh:QpXviRZLMhu2uuXUYJWrhCeuUarj2Ud-@motty.db.elephantsql.com/zfgcmckh" //Can be found in the Details page
+var pool = new postgres.Pool(conString);
 
+//-----------------------------------------------------------------------------------//
 
- const pool = new postgres.Pool({
+ /*const pool = new postgres.Pool({
   user: 'postgres',
   host: 'localhost',
   database: 'renta',
   password: 'Admin',
   port: 5432,
-})
+})*/
 
-/*router.get('/',(req,res)=>
-    {   
-       res.render('index',{h1:{oracion1:"Esta es la página principal"}})
-    }
-)*/
 router.use('*',async(solicitud, respuesta, next) => {        
     if(solicitud.baseUrl=='/favicon.ico')   
     {
