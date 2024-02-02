@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        *
+        {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            user-select:none;
+        }
+        label{display:inline-block;padding:5px;width: 200px;}
+        select , input ,option{display:inline-block;width: 150px;}
+        textarea{width: 100%;height: 100px;resize: none;max-lines:1 ;}
+        button{background-color:rgba(65,139,168,100%);color:aliceblue;padding: 5px 15px;cursor:pointer;text-shadow: black 1px 1px 2px;}
+        form *{font-size: 16px;}
+
+    </style>
+    <title>Formulario de transporte</title>    
+</head>
+<body>
+    <h2>Nuevo servicio de transporte</h2>
+    <hr>
+    <form action="/api/transporte" method="post" enctype="multipart/form-data">
+        <label for="t_nombre" >Id servicio :</label >
+        <input type="text" name="t_nombre" id="t_nombre"value="" required><label id="msg"></label><br>  
+        <label for="t_modelo">Modelo :</label>
+        <input type="text" id="t_modelo" name="t_modelo" required><br/>
+        <label for="t_capacidad">Capacidad de personas :</label>
+        <input type="number" id="t_capacidad" name="t_capacidad" value="4"><br/>
+        <label for="t_embrague">Embrague :</label>
+        <select id="t_embrague" name="t_embrague">
+            <option value="manual">Manual</option>
+            <option value="automatico">Automático</option>
+        </select><br/>
+        <label for="t_autonomia">Autonomía (Km):</label>
+        <input id="t_autonomia" name="t_autonomia" type="number" required>
+        <br/><br/>
+        <label for="t_imagenes">Imagenes:</label>
+        <input type="file" name="t_imagenes" id="t_imagenes" multiple style="width:50%;"><br/><br/>
+        <br/>
+        <br/>
+        <label style="width: 98%;">Nota</label><br>
+        <textarea maxlength="512;" name="t_nota" value="" required >            
+        </textarea><br/> 
+        <hr/>      
+        <button type="submit" id="t_enviar">Guardar</button>
+    </form>  
+    
+    <script>
+        var nombre=document.getElementById("t_nombre"); 
+        var boton=document.getElementById("t_enviar");
+        var msg=document.getElementById("msg");
+       
+        nombre.oninput=function()
+        {             
+            const opt={
+                         method:"POST",
+                         body:JSON.stringify({hacer:4,data:nombre.value}),
+                         headers: {
+                                        'Content-Type': 'application/json'
+                                  }
+                      }
+        
+        fetch(document.location.origin+"/api/check",opt)
+          .then(response => 
+                {   
+                    return response.json();
+                }        
+            ).then
+            (
+                data=>{
+                    console.log(data.existe)
+                        if(data.existe>=1)
+                        {
+                            boton.disabled = true;
+                            console.log("deshabilitado");
+                            msg.style.color="#ff0000";
+                            msg.textContent="Nombre no válido!"                            
+                        } 
+                        else   
+                        {
+                            boton.disabled = false;
+                            console.log("habilitado");
+                            msg.style.color="#00aa00";
+                            msg.textContent="Nombre válido!"
+
+                        } 
+                    
+                      }
+            )    
+            .catch 
+            (
+                error=>
+                {
+                    console.error('Error:',error)
+                }
+            );
+        }
+
+    </script>
+</body>
+</html>
+

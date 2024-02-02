@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      *
+        {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            user-select:none;
+            
+        }
+        section > *{font-size: 16px;}
+        label{display:inline-block;padding:5px;width: 200px;color: rgb(97, 97, 97);}
+        span{font-size: 20px;}
+    </style>
+    <title>Estadisticas</title>
+</head>
+<body>
+    <h2>Reporte</h2>
+    <hr>
+    <section>        
+            <label>No. de visitas:</label><span id="d_visitas"><i></i></span><br>                
+    </section>
+    <script>
+        var visitas=document.getElementById('d_visitas');
+        window.onload=function()
+        {
+           console.log("peticion stadisticas")
+            const opt={
+                         method:"GET",
+                         body:JSON.stringify(),
+                         headers: {
+                                        'Content-Type': 'application/json'
+                                  }
+                      }
+          fetch(document.location.origin+"/api/reporte",opt)
+          .then(response => 
+                {   
+                    return response.json();
+                }        
+            ).then
+            (
+                data=>{
+                    console.log(data.reporte)
+                    visitas.innerHTML=data.reporte.visitas
+                }
+            )    
+            .catch 
+            (
+                error=>
+                {
+                    console.error('Error:',error)
+                }
+            );                      
+        }
+
+
+    </script>
+    
+</body>
+</html>

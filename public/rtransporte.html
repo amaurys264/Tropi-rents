@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/css/font-awesome.css">
+    <link rel="stylesheet" href="./css/g_style.css">  
+    <link rel="stylesheet" href="./css/galery.css">
+    <style>
+        #c_detalle{display: none;position: fixed;z-index: 2;top: 0px;left: 0px;width: 100vw;height: 100vh;overflow-y: auto;transition: 2s;}
+        .c_carta{display:flex;flex-direction:column ;gap:20px;max-width:calc(100vh/1.2);height:fit-content;padding:20px;background-color: rgb(254, 254, 254);margin:auto;box-shadow: 0px 0px 20px;border-radius: 10px; }
+        .c_nombre{font-family: 'tipografia1';font-size: 24px;}
+        .c_cuadro{width: 100%;}
+        .casa_imagen{width: 100%;}
+        .s1{font-family:'tipografia4';font-size: 20px;}
+        .s2{font-family:'tipografia6';font-size: 20px;font-style: oblique;}
+        .s3{font-family:'tipografia1';}
+        .s4{font-family:'tipografia7';color: rgb(105, 105, 106);font-size: 18px;} 
+        #c_contacto{width: 150px;}
+        #c_contacto *{display:inline-block;}
+        #c_contacto i{color: forestgreen;cursor: pointer;}
+        #c_contacto i:hover ~ span{transition: 1s;cursor:pointer;width:100px;}
+        #c_numero{transition: 0.5s;width: 0px;overflow: hidden;height: 20px;text-overflow:clip;}
+
+        .c_footer{display:flex;flex-direction: row;justify-content: space-between;}
+        #icon_close{width: fit-content;padding: 5px;border-radius: 2px;}
+        #icon_close:hover{cursor:pointer;background-color: rgb(160, 160, 160);}
+        .c_detalle_head{display:flex;flex-direction: row;justify-content: space-between;}
+        .c_info{background:-webkit-linear-gradient(320deg , rgb(228, 206, 206), rgb(248, 212, 182)); }
+
+
+    </style> 
+    <title>Rentas de casas</title>    
+</head>
+<body>
+    <div class="contenido">
+        <header>    
+            <div style="width: 50px;"></div>   
+            <a href="index.html"><img id="logo" src="./img/tropi-rents.png"/></a>  
+            <i id="hideshow" class="fa fa-navicon" ></i>    
+        </header> 
+        <div id="navegacion">
+            <nav>                  
+                <a href="rcasas.html" class="b_navegacion"><span ><i class="fa fa-home"></i><span>Rentas de casas</span></span></a>                               
+                <a href="rpiscina.html" class="b_navegacion"><span ><i class="fa fa-shower"></i><span>Pasadias en piscinas.</span></span></a>    
+                <a href="rfiesta.html" class="b_navegacion"><span ><i class="fa fa-gift"></i><span>Locales para fiestas.</span></span></a>    
+                <a href="rtransporte.html" class="b_navegacion"><span ><i class="fa fa-taxi"></i><span>Servicio de transporte.</span></span></a>     
+            </nav>
+        </div>           
+       <div class="main-container">
+             <div class="cabecera">
+                <details class="subcabecera1">
+                    <summary>
+                        <span class="encabezado"><span >Servicio de transporte</span><i class="fa fa-taxi"></i></span>
+                    </summary>
+                    <hr/>    
+                   <div class="subcabecera2">                          
+                     <select id="Precio">
+                           <option value="Na">Organiza por autonomía</option>
+                           <option value="asc">Menor autonomía</option>
+                           <option value="desc">Mayor autonomía</option>
+                     </select>                     
+            </div>                
+            </details>             
+             </div>
+          <div id="contenedor1" class="container1">
+                      <div id="contenedor2" class="container2">     
+                     </div> 
+          </div>
+        </div>         
+    </div> 
+    <div id=c_detalle>                   
+        <div class="c_carta">
+            
+            <div class="c_detalle_head">
+                    <span class="c_nombre">Nombre de inmueble</span><i id="icon_close" class="fa fa-times"></i>
+            </div>
+            <div class='c_slider'>                                  
+                <img class="casa_imagen" src="./img/no_picture.jpg">                        
+            </div>  
+            <div class='sl_menu' id="botonera"></div>    
+            <div>
+                <span id="cl_ubi" class="s1">Modelo:</span>  
+                <span id="c_modelo" class="s2">Lada 2105</span>                
+            </div>
+            <div>
+                <span id="cl_ubi" class="s1">con capacidad para:</span>  
+                <span id="c_capacidad" class="s1">Lada 2105</span>                
+            </div>
+            <div>
+                <span id="cl_ubi" class="s1">Embrague:</span>  
+                <span id="c_embrague" class="s2">Manual</span>                
+            </div>
+            
+            <p id="c_descripcion" class="s4">El nombre de la imagen es el nombre que se le da al fichero que se publica en la red... no
+                es lo mismo que una imagen sobre la reproducción de las ranas se llame “imagen1.jpg” que
+                “reproduccion-ranas.jpg”. Aunque no lo parezca, además del nombre, que es mucho más
+                significativo y tiene incluidas las palabras clave, es mucho más “razonable” para que una
+                persona vea el nombre del fichero y sepa de qué trata, lo que hará que el usuario tienda a
+                pulsar sobre la imagen.</p>           
+            
+            <div class="c_footer">
+                 <div>
+                    <span id="c_autonomia" class="s1" style="color:#224bbd; font-weight: 600;font-size: 28px;">$120</span>
+                    <span id="c_costo" class="s3">(Km)</span>
+                 </div>  
+                 <div id="c_contacto">
+                    <a href="https://wa.me/5350103060"><i class="fa fa-whatsapp" style="font-size: 28px;padding: 0px 10px;"></i><span id="c_numero">+5350103060</span></a>
+                    
+                </div>   
+            </div>
+        </div>                     
+</div> 
+ 
+    <script src="./js/general.js"></script>
+    <script src="./js/rtransporte.js"></script>
+    <noscript>
+        Procesamiento de script desactivado.Active esta característica en su navegador.
+    </noscript>
+</body>
+</html>

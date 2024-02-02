@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/css/font-awesome.css">
+    <style>
+        *{
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            user-select: none;
+            
+          }
+          body
+          {
+            display:flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: end;
+            background-color:rgba(65,139,168,100%);
+          }
+          form
+          {
+            background-color:rgb(206, 206, 206);
+            padding: 18px;       
+            box-shadow: black 1px 1px 5px;  
+            border-radius: 5px;  
+            max-width: 300px;
+
+          }
+          h1{font-size: 24px;text-align: center;}
+          fieldset *{font-size: 18px;}
+          button{display:bolck;font-size: 18px;background-color:rgba(65,139,168,100%);color:aliceblue;padding: 5px 15px;cursor:pointer;text-shadow: black 1px 1px 2px;width: 100%;}
+          label{display:inline-block;padding:5px;width: 100px;font-weight: 500;color:rgb(0, 0, 0);}
+        select , input ,option{display:block;width:95% ;text-align: center;color: rgb(105, 78, 28);}
+        fieldset{color: rgb(103, 104, 104);border-color:rgb(179, 179, 179);}
+       
+            
+     
+    </style>
+    <title>Login</title>
+</head>
+<body>
+
+    <form action="login/access" method="post">
+        <h1>Gestiona tu contenido</h1>
+       <fieldset>
+            <legend>Datos de acceso</legend>
+        <br/>    
+        <label for="usuario">Usuario</label>
+        <input type="text" name="usuario" id="usuario" required maxlength="20">
+        <br/>
+        <label for="contraseña">Contraseña</label>
+        <input type="password" name="pass" id="pass" required>
+        <br/>
+    </fieldset> 
+        <br/>
+        <button type="submit">Entrar</button>
+    </form>    
+</body>
+</html>

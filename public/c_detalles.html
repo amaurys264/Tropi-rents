@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles de inmueble</title>
+    <link rel="stylesheet" href="./css/css/font-awesome.css">
+    <link rel="stylesheet" href="./css/g_style.css">
+    <style>
+        #c_carta{display:flex;flex-direction:column ;gap:20px;width:calc(100vh/1.2);height:fit-content;padding:20px;background-color: rgb(228, 228, 228);margin:auto;box-shadow: 0px 0px 20px; }
+        .c_nombre{font-family: 'tipografia1';font-size: 24px;}
+        .c_cuadro{width: 100%;}
+        .casa_imagen{width: 100%;}
+        .s1{font-family:'tipografia4';}
+        .s2{font-family:'tipografia6';font-size: 24px;font-style: oblique;color: rgb(82, 82, 82);}
+        .s3{font-family:'tipografia1';}
+        .s4{font-family:'tipografia1';color: rgb(117, 117, 117);} 
+        #c_contacto *{padding:5px 10px;}        
+        .c_footer{display:flex;flex-direction: row;justify-content: space-between;}
+
+    </style>
+</head>
+<body>
+    <div id="c_carta">
+        <h3 class="c_nombre">Nombre de inmueble</h3>
+        <div class="c_cuadro">
+            <img class="casa_imagen" src="./img/no_picture.jpg">
+        </div>
+        <div>
+            <span id="cl_ubi" class="s1">Ubicación:</span>  
+            <span id="c_ubi" class="s2">Matanzas</span>
+            <span class="s2">,</span>
+            <span id="c_zona" class="s2">Varadero</span>
+        </div>
+        <p id="c_descripcion" class="s4">El nombre de la imagen es el nombre que se le da al fichero que se publica en la red... no
+            es lo mismo que una imagen sobre la reproducción de las ranas se llame “imagen1.jpg” que
+            “reproduccion-ranas.jpg”. Aunque no lo parezca, además del nombre, que es mucho más
+            significativo y tiene incluidas las palabras clave, es mucho más “razonable” para que una
+            persona vea el nombre del fichero y sepa de qué trata, lo que hará que el usuario tienda a
+            pulsar sobre la imagen.</p>
+        <div>
+            <span id="cl_estado" class="s1" style="font-size: 20px;">Estado:</span>    
+            <span id ="c_estado" class="s2">Disponible</span>
+        </div>
+        <div class="c_footer">
+             <div>
+                <span id="cl_costo" class="s1"style="color:#bd2253" style="font-size: 28px;font-weight: 900;">$120</span>
+                <span id="c_costo" class="s3">/noche</span>
+             </div>  
+             <div id="c_contacto">
+                <span style="color:green"><i class="fa fa-whatsapp"></i>+53 50103060</span>
+            </div>   
+        </div>
+    </div>    
+</body>
+</html>

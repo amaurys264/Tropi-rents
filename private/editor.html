@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/css/font-awesome.css">
+    <link rel="stylesheet" href="../css/g_style.css">
+    <style> 
+        header{justify-content:left ; }       
+        #section_container{background-color: black;}
+        .b_navegacion{display:flex;justify-content: left;padding: 0px 25px;}  
+        #section_container {display:grid;grid-template-columns: 230px auto;justify-content: stretch;}     
+        #section_container > *
+        {
+            height: 100%;            
+        }
+        aside{background-color:rgba(65,139,168,1);}
+        section{width: 100%;background-color:rgb(223, 223, 223);}    
+        iframe{background-color: rgb(223, 223, 223);width: 99.6%;height: 100%;border-width: 0px ;}
+        #contenido{display:block;}
+        .encabezado{padding:0px 20px}
+    </style>
+    <title>Gestion de casas</title>
+</head>
+<body>
+   <div class="contenido">
+        <header style="justify-content:start">  
+                        
+               <img id="logo" src="../img/tropi-rents.png">  
+              
+        </header>
+        <div id="navegacion">
+            <div class="subcabecera1">
+                <span class="encabezado" style="font-size: 20px;"><span >Centro de Control de contenido</span><i class="fa fa-gear"></i></span>                
+            </div>
+        </div>  
+        <div id="section_container">
+            <aside>
+                <div class="b_navegacion">
+                    <span onclick=" document.querySelector('iframe').src='c_form.html'" ><i class="fa fa-plus"></i>Agregar casa</span>
+                </div>       
+                <div class="b_navegacion">
+                    <span onclick=" document.querySelector('iframe').src='p_form.html'" ><i class="fa fa-plus"></i>Agregar pasadias</span>
+                </div>
+                <div class="b_navegacion">
+                    <span onclick=" document.querySelector('iframe').src='f_form.html'" ><i class="fa fa-plus"></i>Agregar local de fiesta</span>
+                </div>
+                <div class="b_navegacion">
+                    <span onclick=" document.querySelector('iframe').src='t_form.html'" ><i class="fa fa-plus"></i>Agregar transporte</span>
+                </div>
+                <div class="b_navegacion">
+                    <span onclick=" document.querySelector('iframe').src='listado.html'"><i class="fa fa-list"></i>Listado</span>
+                </div>       
+                <div class="b_navegacion">
+                    <span onclick=" document.querySelector('iframe').src='reporte.html'"><i class="fa fa-line-chart"></i>Estadísticas</span>
+                </div>       
+                <div class="b_navegacion">
+                    <a href="../index.html"><span><i class="fa fa-sign-out"></i>Salir</span></a>
+                </div>
+            </aside>            
+             <section> 
+                <iframe src="c_form.html">
+
+                </iframe>           
+             </section>    
+       </div>
+    </div>   
+</body>
+</html>

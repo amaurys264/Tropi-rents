@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado</title>
+    <link rel="stylesheet" href="../css/css/font-awesome.css">
+    <style>
+        *
+        {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            user-select:none;
+        }
+        label{display:inline-block;padding:5px;cursor: pointer;}
+        select , option{display:inline-block;width: 150px;}
+        textarea{width: 100%;height: 100px;resize: none;max-lines:1 ;}
+        button{background-color:rgba(65,139,168,100%);color:aliceblue;padding: 5px 15px;cursor:pointer;text-shadow: black 1px 1px 2px;}
+        form *{font-size: 16px;}
+        input[type="radio"]{margin-right: 40px;cursor: pointer;}
+        em {color:rgb(124, 124, 124)}
+        #tabla{}
+        .elemento{background-color:rgb(235, 233, 233);padding: 5px 10px;display:grid;grid-template-columns: 20% 50% 10% 10% 10%;margin: auto;width:95%;}
+        .elemento:hover{background-color:rgb(172, 172, 172);cursor:pointer;}
+        
+        .elemento>span{-moz-text-wrap:nowrap;text-wrap:nowrap;text-overflow:ellipsis;overflow-x: hidden;padding: 0px 5px;max-height:30px;}
+        .s_delete{background-color: rgb(255, 255, 255);border-radius: 50%;margin: auto; color: dimgray;}
+        .s_delete:hover
+        {
+            color: brown;
+            -webkit-animation-name: 'anima1';
+            -moz-animation-name:'anima1' ;
+            -webkit-animation-iteration-count: infinite;
+            -moz-animation-iteration-count: infinite;
+            -webkit-animation-direction: normal;
+            -moz-animation-direction: normal;
+            -webkit-animation-duration: 1s;
+            -moz-animation-duration: 1s;
+
+        }
+        @keyframes anima1
+        {
+            0%{scale: 1.2;}
+            50%{scale: 1.0;}
+            100%{border-radius: 40%}
+        }
+
+        i{padding:5px}
+        .tabla_head{font-size: 24xp;font-weight: 700;padding: 10px;}
+    </style>
+</head>
+<body>
+    <h2>Listado de anuncios publicados</h2>
+    <hr>
+    <div>
+        <label for="casas" >Casas</label>
+        <input id="casas" name="l_categoria" type="radio" id="l_categoria" value="casas" checked>
+        <label for="piscinas" >Piscina</label>
+        <input type="radio" name="l_categoria" id="piscinas" value="piscinas">
+        <label for="fiesta" >Fiesta</label>
+        <input type="radio" name="l_categoria" id="fiesta"value="fiesta">
+        <label for="transporte" >Transporte</label>
+        <input type="radio" name="l_categoria" id="transporte"value="transporte">        
+    </div>
+    </br>
+    <div id="tabla">
+        
+    
+        <script>
+            var tabla=document.getElementById('tabla');
+            var radioButton = document.querySelectorAll('input[type="radio"]')
+            var datos
+            radioButton.forEach((radio)=>
+                {
+                    radio.onchange=function()
+                    {
+                        switch(radio.value)
+                        {
+                            case "casas":
+                                show_casas()
+                                break;                                
+                            case "piscinas":                               
+                                show_piscina();
+                                break;    
+                            case "fiesta":
+                                show_fiesta();
+                                break;                                
+                            case "transporte":
+                                show_transporte();
+                                break;
+                        }
+
+                    }    
+                }
+            
+            )
+            window.onload=function()
+            {
+                show_casas()
+            }
+        function show_casas()
+        {
+            const data={
+              method:"POST",
+              body:JSON.stringify({ubicacion_p:"Na",precio:"Na"}), 
+              headers: {
+                        'Content-Type': 'application/json'
+                       }
+                        }
+            fetch('/api/casas/mostrar',data)
+                  .then((resp)=>{        
+                    return resp.json();   
+                  })
+
+                .then(data=>{      
+                    tabla.innerHTML=`<div class="elemento" style="background-color: rgb(212, 196, 184);">
+                        <span class='tabla_head'>Nombre</span>
+                        <span class='tabla_head'>Descripción            
+                        </span>
+                        <span class='tabla_head'>
+                        Cantidad de imagenes
+                        </span>
+                        <span class='tabla_head' style="text-align:center">
+                            Precio
+                        </span>
+                        <span class="s_delete">                      
+                        </span>
+                    </div>`       
+                    datos=data;
+                    if (data.casas.length>0)
+                        {
+                            let imagen_path="";
+                            data.casas.forEach((element,index) => 
+                                { 
+                                tabla.innerHTML+=`
+                                <div class="elemento">
+                                    <span>${element.nombre}</span>
+                                    <span title="${element.descripcion}"><em>${element.descripcion}
+                                           </em>                                           
+                                    </span>
+                                    <span>
+                                        <li class="fa fa-image" title="Cantidad de imagenes"></li>
+                                               ${element.galeria.length}
+                                    </span>
+                                    <span style="text-align:center">$
+                                        ${element.precio_ta}
+                                    </span>
+                                    <span class="s_delete" data-iddom="${element.nombre}">
+                                        <i class="fa fa-trash-o" title="Borrar publicación"></i></span>
+                                    </span>
+                                </div>`        
+                  })          
+            }
+            else
+            {
+               contenedor2.innerHTML=`<h4 style="display: block;text-align: center;margin:auto;">No hay artículos para mostrar</h4>`
+            }
+            console.log(datos)
+         })    
+            .catch((error)=>
+                  {
+                     //console.error('Error:__',error+"__")'
+                  })
+                  setTimeout(()=>{cargar(1)},1000);
+        }
+        function show_piscina()
+        {
+            const data={
+              method:"POST",
+              body:JSON.stringify({ubicacion_p:"Na",precio:"Na"}), 
+              headers: {
+                        'Content-Type': 'application/json'
+                       }
+                        }
+            fetch('/api/piscina/mostrar',data)
+                  .then((resp)=>{        
+                    return resp.json();   
+                  })
+                .then(data=>{      
+                    tabla.innerHTML=`<div class="elemento" style="background-color: rgb(212, 196, 184);">
+                        <span class='tabla_head'>Nombre</span>
+                        <span class='tabla_head'>Descripción            
+                        </span>
+                        <span class='tabla_head'>
+                        Cantidad de imagenes
+                        </span>
+                        <span class='tabla_head' style="text-align:center">
+                            Precio
+                        </span>
+                        <span class="s_delete">                      
+                        </span>
+                    </div>`       
+                    datos=data;                    
+                    if (data.piscina.length>0)
+                        {
+                            let imagen_path="";
+                            data.piscina.forEach((element,index) => 
+                                { 
+                                tabla.innerHTML+=`
+                                <div class="elemento">
+                                    <span>${element.nombre}</span>
+                                    <span title="${element.notas}"><em>${element.notas}
+                                           </em>                                           
+                                    </span>
+                                    <span>
+                                        <li class="fa fa-image" title="Cantidad de imagenes"></li>
+                                               ${element.galeria.length}
+                                    </span>
+                                    <span style="text-align:center">$
+                                        ${element.precio}
+                                    </span>
+                                    <span class="s_delete" data-iddom="${element.nombre}">
+                                        <i class="fa fa-trash-o" title="Borrar publicación"></i></span>
+                                    </span>
+                                </div>`        
+                                  })          
+                         }
+            else
+            {
+               contenedor2.innerHTML=`<h4 style="display: block;text-align: center;margin:auto;">No hay artículos para mostrar</h4>`
+            }
+            console.log(datos)
+         })    
+            .catch((error)=>
+                  {
+                     //console.error('Error:__',error+"__")'
+                  })
+                  setTimeout(()=>{cargar(2)},1000);
+        }
+        function show_fiesta()
+        {
+            const data={
+              method:"POST",
+              body:JSON.stringify({ubicacion_p:"Na",precio:"Na"}), 
+              headers: {
+                        'Content-Type': 'application/json'
+                       }
+                        }
+            fetch('/api/fiesta/mostrar',{method:data})
+                  .then((resp)=>{        
+                    return resp.json();   
+                  })
+                .then(data=>{      
+                    tabla.innerHTML=`<div class="elemento" style="background-color: rgb(212, 196, 184);">
+                        <span class='tabla_head'>Nombre</span>
+                        <span class='tabla_head'>Descripción            
+                        </span>
+                        <span class='tabla_head'>
+                        Cantidad de imagenes
+                        </span>
+                        <span class='tabla_head' style="text-align:center">
+                            Precio
+                        </span>
+                        <span class="s_delete">                      
+                        </span>
+                    </div>`       
+                    datos=data;                   
+                    if (data.fiesta.length>0)
+                        {
+                            let imagen_path="";
+                            data.fiesta.forEach((element,index) => 
+                                { 
+                                tabla.innerHTML+=`
+                                <div class="elemento">
+                                    <span>${element.nombre}</span>
+                                    <span title="${element.nota}"><em>${element.nota}
+                                           </em>                                           
+                                    </span>
+                                    <span>
+                                        <li class="fa fa-image" title="Cantidad de imagenes"></li>
+                                               ${element.galeria.length}
+                                    </span>
+                                    <span style="text-align:center">$
+                                        ${element.precio}
+                                    </span>
+                                    <span class="s_delete" data-iddom="${element.nombre}">
+                                        <i class="fa fa-trash-o" title="Borrar publicación"></i></span>
+                                    </span>
+                                </div>`        
+                                  })          
+                         }
+            else
+            {
+               contenedor2.innerHTML=`<h4 style="display: block;text-align: center;margin:auto;">No hay artículos para mostrar</h4>`
+            }
+            console.log(datos)
+         })    
+            .catch((error)=>
+                  {
+                     //console.error('Error:__',error+"__")'
+                  })
+                  setTimeout(()=>{cargar(3)},1000);
+        }
+        function show_transporte()
+        {
+            const data={
+              method:"POST",
+              body:JSON.stringify({ubicacion_p:"Na",precio:"Na"}), 
+              headers: {
+                        'Content-Type': 'application/json'
+                       }
+                        }
+            fetch('/api/transporte/mostrar',data)
+                  .then((resp)=>{        
+                    return resp.json();   
+                  })
+                .then(data=>{      
+                    tabla.innerHTML=`<div class="elemento" style="background-color: rgb(212, 196, 184);">
+                        <span class='tabla_head'>Nombre</span>
+                        <span class='tabla_head'>Descripción            
+                        </span>
+                        <span class='tabla_head' style="left:30%">
+                        Cantidad de imagenes
+                        </span>
+                        <span class='tabla_head' style="text-align:center">
+                            Precio
+                        </span>
+                        <span class="s_delete">                      
+                        </span>
+                    </div>`       
+                    datos=data;                   
+                    if (data.transporte.length>0)
+                        {
+                            let imagen_path="";
+                            data.transporte.forEach((element,index) => 
+                                { 
+                                tabla.innerHTML+=`
+                                <div class="elemento">
+                                    <span>${element.nombre}</span>
+                                    <span title="${element.nota}"><em>${element.nota}
+                                           </em>                                           
+                                    </span>
+                                    <span>
+                                        <li class="fa fa-image" title="Cantidad de imagenes"></li>
+                                               ${element.galeria.length}
+                                    </span>
+                                    <span style="text-align:center">???
+                                        
+                                    </span>
+                                    <span class="s_delete" data-iddom="${element.nombre}">
+                                        <i class="fa fa-trash-o" title="Borrar publicación"></i></span>
+                                    </span>
+                                </div>`        
+                                  })          
+                         }
+            else
+            {
+               contenedor2.innerHTML=`<h4 style="display: block;text-align: center;margin:auto;">No hay artículos para mostrar</h4>`
+            }
+            console.log(datos)
+         })    
+            .catch((error)=>
+                  {
+                     //console.error('Error:__',error+"__")'
+                  })
+                  setTimeout(()=>{cargar(4)},1000);
+        }
+        let cargar=function(channel)
+        {
+                let listado=document.querySelectorAll('.s_delete')
+                console.log(channel)
+                listado.forEach((anuncio,index)=>
+                    {
+                        anuncio.onclick=function()
+                            {
+                                console.log(anuncio.dataset.iddom)
+                                const opt={
+                                  method:"DELETE",
+                                    body:JSON.stringify({canal:channel,campo_nombre:anuncio.dataset.iddom}),
+                                    headers: {
+                                                'Content-Type': 'application/json'
+                                             }                                          
+                                           }
+                                fetch(document.location.origin+'/api/all',opt)
+                                 .then((resp)=>{        
+                                  return resp.json();   
+                                })
+                                .then(data=>{      
+                                 if (data.borrado!==null)   
+                                 {
+                                    alert("El anuncio *"+data.borrado+"* ha sido eliminado.")  
+                                    switch(channel)
+                                            {
+                                                case 1:
+                                                    show_casas()
+                                                    break;                                
+                                                case 2:                               
+                                                    show_piscina(); 
+                                                    break;    
+                                                case 3:
+                                                    show_fiesta();
+                                                    break;                                
+                                                case 4:
+                                                    show_transporte();
+                                                    break;
+                                            }  
+                                }
+                                }).catch((error)=>
+                            {
+                                alert('Error:__',error+"__")
+                            })
+                            }
+                    }
+                    )  
+        }                    
+        </script>
+    </form>     
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        *
+        {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            user-select:none;
+        }
+        label{display:inline-block;padding:5px;width: 200px;}
+        select , input ,option{display:inline-block;width: 150px;}
+        textarea{width: 100%;height: 100px;resize: none;max-lines:1 ;}
+        button{background-color:rgba(65,139,168,100%);color:aliceblue;padding: 5px 15px;cursor:pointer;text-shadow: black 1px 1px 2px;}
+        form *{font-size: 16px;}
+
+    </style>
+    <title>Formulario de Locales para fiestas</title>    
+</head>
+<body>
+    <h2>Nuevo Local de fiesta</h2>
+    <hr>
+    <form action="/api/fiesta" method="post" enctype="multipart/form-data">
+        <label for="nombre" >Id local :</label >
+        <input type="text" name="f_nombre" id="f_nombre"value="" required><label id="msg"></label><br>
+        <label for="f_ubicacion_p">Provincia</label>
+        <select id="f_ubicacion_p" name="f_ubicacion_p">
+                                      <option value="Pinar del Rio">Pinar del Rio.</option>
+                                      <option value="La Habana">La Habana</option>
+                                      <option value="Artemiza">Artemiza</option>
+                                      <option value="Matanzas">Matanzas</option>
+                                      <option value="Mayabeque">Mayabeque</option>
+                                      <option value="Villa Clara">Villa Clara</option>
+                                      <option value="Cienfuegos">Cienfuegos</option>
+                                      <option value="Santi Spiritus">Santi Spiritus</option>
+                                      <option value="Ciego de Avila">Ciego de Avila</option>
+                                      <option value="Camagüey">Camagüey</option>
+                                      <option value="Las Tunas">Las Tunas</option>
+                                      <option value="Holguín">Holguín</option>
+                                      <option value="Granma">Granma</option>
+                                      <option value="Stgo de Cuba">Stgo de Cuba</option>
+                                      <option value="Guantánamo">Guantánamo</option>
+        </select><br/>
+        <label for="f_ubicacion_z">Zona :</label>
+        <input id="f_ubicacion_z"type="text" name="f_ubicacion_z" required><br/>       
+        <label for="f_local">Tipo de local :</label>
+        <select id="f_local" name="f_local">
+            <option value="Salón">Salón</option>
+            <option value="Aire libre">Aire libre</option>
+        </select><br/> 
+        <label for="f_capacidad">Capacidad :</label>
+        <input type="number" id="f_capacidad" name="f_capacidad" required><br/> 
+        <label for="f_precio">Precio :</label>
+        <input type="number" name="f_precio"  id="f_precio" value=""required><br/>       
+        <label for="f_telefono">Telf. de contacto :</label>
+        <input type="tel" name="f_telefono" id="f_telefono" value="+5350103060"required><br/>
+        <label for="f_horario_d">Horario diurno?</label>
+        <input type="checkbox" name="f_horario_d" id="f_horario_d" checked><br/> 
+        <label for="f_horario_n">Horario nocturno?</label>
+        <input type="checkbox" name="f_horario_n" id="f_horario_n"><br/>         
+        <fieldset>
+            <legend>Confort</legend>
+                <label for="f_decoracion">Servicio de decoración :</label><input type="checkbox" name="f_decoracion" id="f_decoracion"><br/>
+                <label for="f_audio">Equipo de audio :</label><input type="checkbox" name="f_audio" id="f_audio"><br/>
+                <label for="f_piscina">Piscina :</label><input type="checkbox" name="f_piscina" id="f_piscina"><br/>
+                <label for="f_gastronomia">Ofertas gastronómicas :</label><input type="checkbox" name="f_gastronomia" id="f_gastronomia"><br/>
+                <label for="f_entretenimiento">Entretenimiento :</label><input type="checkbox" name="f_entretenimiento" id="f_entretenimiento"><br/>
+        </fieldset>
+        <br/>
+        <label for="f_imagenes">Imágenes :</label>
+        <input type="file" name="f_imagenes" id="f_imagenes" multiple style="width:50%;"><br/>        
+        <hr/>
+        <br/>
+        <label style="width: 98%;">Nota</label><br>
+        <textarea maxlength="512;" name="f_nota" value="" required placeholder="Escribe aqui algunas aclaracione acerca del local...">            
+        </textarea><br/> 
+        <hr/>      
+        <button type="submit" id="f_enviar">Guardar</button>
+        <script>
+            var nombre=document.getElementById("f_nombre");            
+            var boton=document.getElementById("f_enviar");
+            var msg=document.getElementById("msg");
+           
+            nombre.oninput=function()
+            {                  
+                const opt={
+                             method:"POST",
+                             body:JSON.stringify({hacer:3,data:nombre.value}),
+                             headers: {
+                                            'Content-Type': 'application/json'
+                                      }
+                          }
+            
+            fetch(document.location.origin+"/api/check",opt)
+              .then(response => 
+                    {   
+                        return response.json();
+                    }        
+                ).then
+                (
+                    data=>{
+                        console.log(data.existe)
+                            if(data.existe>=1)
+                            {
+                                boton.disabled = true;
+                                console.log("deshabilitado");
+                                msg.style.color="#ff0000";
+                                msg.textContent="Nombre no válido!"                            
+                            } 
+                            else   
+                            {
+                                boton.disabled = false;
+                                console.log("habilitado");
+                                msg.style.color="#00aa00";
+                                msg.textContent="Nombre válido!"    
+                            }                         
+                          }
+                )    
+                .catch 
+                (
+                    error=>
+                    {
+                        console.error('Error:',error)
+                    }
+                );
+            }
+    
+        </script>
+
+
+    </form>    
+</body>
+</html>
+

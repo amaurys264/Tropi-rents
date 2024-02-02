@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        *
+        {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            user-select:none;
+        }
+        label{display:inline-block;padding:5px;width: 200px;}
+        select , input ,option{display:inline-block;width: 150px;}
+        textarea{width: 100%;height: 100px;resize: none;max-lines:1 ;}
+        button{background-color:rgba(65,139,168,100%);color:aliceblue;padding: 5px 15px;cursor:pointer;text-shadow: black 1px 1px 2px;}
+        form *{font-size: 16px;}
+
+    </style>
+    <title>Formulario de casas</title>    
+</head>
+<body>
+    <h2>Nuevo Inmueble</h2>
+    <hr>
+    <form action="/api/casas" method="post" enctype="multipart/form-data">
+        <label for="nombre" >Id inmueble.</label >
+        <input type="text" name="nombre" id="c_nombre"value="" required><label id="msg"></label><br>
+        <label for="ubicacion_p">Provincia</label>
+        <select id="ubicacion_p" name="ubicacion_p">
+                                      <option value="Pinar del Rio">Pinar del Rio.</option>
+                                      <option value="La Habana">La Habana</option>
+                                      <option value="Artemiza">Artemiza</option>
+                                      <option value="Matanzas">Matanzas</option>
+                                      <option value="Mayabeque">Mayabeque</option>
+                                      <option value="Villa Clara">Villa Clara</option>
+                                      <option value="Cienfuegos">Cienfuegos</option>
+                                      <option value="Santi Spiritus">Santi Spiritus</option>
+                                      <option value="Ciego de Avila">Ciego de Avila</option>
+                                      <option value="Camagüey">Camagüey</option>
+                                      <option value="Las Tunas">Las Tunas</option>
+                                      <option value="Holguín">Holguín</option>
+                                      <option value="Granma">Granma</option>
+                                      <option value="Stgo de Cuba">Stgo de Cuba</option>
+                                      <option value="Guantánamo">Guantánamo</option>
+        </select><br/>
+        <label for="ubicacion_z">Zona :</label>
+        <input id="ubicacion_z"type="text" name="ubicacion_z" required><br/>
+        <label for="precio_ta">Precio/noche :</label>
+        <input type="number" name="precio_ta"  id="precio_ta" value=""required><br/>
+        <label>Imágenes :</label>
+        <input type="file" name="imagenes" multiple style="width:50%;"><br/>
+        <label for="piscina">Piscina?</label>
+        <input type="checkbox" name="piscina" id="piscina"><br/>
+        <label for="cocina">Cocina?</label>
+        <input type="checkbox" name="cocina" id="cocina"><br/>
+        <hr/>
+
+        <br/>
+        <label style="width: 98%;">Descripción del inmueble.</label><br>
+        <textarea maxlength="512;" name="descripcion" value="" required >            
+        </textarea><br/> 
+        <hr/>      
+        <button type="submit" id="c_enviar">Guardar</button>
+
+
+    </form> 
+    <script>
+        var nombre=document.getElementById("c_nombre");       
+        var boton=document.getElementById("c_enviar");
+        var msg=document.getElementById("msg");
+       
+        nombre.oninput=function()
+        {            
+            const opt={
+                         method:"POST",
+                         body:JSON.stringify({hacer:1,data:nombre.value}),
+                         headers: {
+                                        'Content-Type': 'application/json'
+                                  }
+                      }        
+        fetch(document.location.origin+"/api/check",opt)
+          .then(response => 
+                {   
+                    return response.json();
+                }        
+            ).then
+            (
+                data=>{
+                    console.log(data.existe)
+                        if(data.existe>=1)
+                        {
+                            boton.disabled = true;
+                            console.log("deshabilitado");
+                            msg.style.color="#ff0000";
+                            msg.textContent="Nombre no válido!"                            
+                        } 
+                        else   
+                        {
+                            boton.disabled = false;
+                            console.log("habilitado");
+                            msg.style.color="#00aa00";
+                            msg.textContent="Nombre válido!"
+                        }                     
+                      }
+            )    
+            .catch 
+            (
+                error=>
+                {
+                    console.error('Error:',error)
+                }
+            );
+        }
+
+    </script>   
+</body>
+</html>
