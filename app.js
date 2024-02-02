@@ -1,5 +1,6 @@
 const express=require('express');
 const server=express();
+const puerto=process.env.port||3002;
 
 
 server.set('view engine','ejs');
@@ -22,7 +23,7 @@ server.use('/',require('./rutas/rutas_primarias'));
 
 
 server.listen(
-    3002,(red,res)=>
+    puerto,(red,res)=>
     {
         console.log("Servidor a la escucha!")
     }
