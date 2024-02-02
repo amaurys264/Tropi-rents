@@ -21,6 +21,19 @@ const newupload = multer({ storage: storage })
 //--------------------conneccion a elephant sql-------------------------------------\\
 var conString = "postgres://zfgcmckh:QpXviRZLMhu2uuXUYJWrhCeuUarj2Ud-@motty.db.elephantsql.com/zfgcmckh" //Can be found in the Details page
 var pool = new postgres.Client(conString);
+pool.connect(function(err) {
+    if(err) {
+      return console.error('could not connect to postgres', err);
+    }
+    pool.query('SELECT NOW() AS "theTime"', function(err, result) {
+      if(err) {
+        return console.error('error running query', err);
+      }
+      console.log(result.rows[0].theTime);
+      // >> output: 2018-08-23T14:02:57.117Z
+      pool.end();
+    });
+  });
 
 //-----------------------------------------------------------------------------------//
 
