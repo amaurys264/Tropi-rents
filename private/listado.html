@@ -231,16 +231,18 @@
         function show_fiesta()
         {
             const data={
-              method:"POST",
-              body:JSON.stringify({ubicacion_p:"Na",precio:"Na"}), 
-              headers: {
-                        'Content-Type': 'application/json'
-                       }
-                        }
-            fetch('/api/fiesta/mostrar',{method:data})
-                  .then((resp)=>{        
-                    return resp.json();   
-                  })
+                       const data={
+      method:"POST",
+      body:JSON.stringify({ubicacion_p:"Na",precio:"Na"}),
+      headers: {
+                     'Content-Type': 'application/json'
+               }
+   }
+   fetch('/api/fiesta/mostrar',data)
+   .then((resp)=>{        
+    return resp.json();
+    })
+
                 .then(data=>{ 
                     console.log(data);
                     tabla.innerHTML=`<div class="elemento" style="background-color: rgb(212, 196, 184);">
