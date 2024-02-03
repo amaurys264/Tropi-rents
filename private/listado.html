@@ -111,8 +111,9 @@
                     return resp.json();   
                   })
 
-                .then(data=>{      
-                    tabla.innerHTML=`<div class="elemento" style="background-color: rgb(212, 196, 184);">
+                .then(data=>{   
+                        console.log(data);
+                        tabla.innerHTML=`<div class="elemento" style="background-color: rgb(212, 196, 184);">
                         <span class='tabla_head'>Nombre</span>
                         <span class='tabla_head'>Descripción            
                         </span>
@@ -175,7 +176,8 @@
                   .then((resp)=>{        
                     return resp.json();   
                   })
-                .then(data=>{      
+                .then(data=>{ 
+                    console.log(data);
                     tabla.innerHTML=`<div class="elemento" style="background-color: rgb(212, 196, 184);">
                         <span class='tabla_head'>Nombre</span>
                         <span class='tabla_head'>Descripción            
@@ -239,7 +241,8 @@
                   .then((resp)=>{        
                     return resp.json();   
                   })
-                .then(data=>{      
+                .then(data=>{ 
+                    console.log(data);
                     tabla.innerHTML=`<div class="elemento" style="background-color: rgb(212, 196, 184);">
                         <span class='tabla_head'>Nombre</span>
                         <span class='tabla_head'>Descripción            
@@ -303,7 +306,8 @@
                   .then((resp)=>{        
                     return resp.json();   
                   })
-                .then(data=>{      
+                .then(data=>{ 
+                    console.log(data);
                     tabla.innerHTML=`<div class="elemento" style="background-color: rgb(212, 196, 184);">
                         <span class='tabla_head'>Nombre</span>
                         <span class='tabla_head'>Descripción            
