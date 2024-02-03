@@ -247,10 +247,11 @@ router.post('/api/pasadias',newupload.array('p_imagenes'),async (req,res,next)=>
     {
         console.log("formulario recibido#2")        
         let resultado1= await pool.query(`insert into piscina (nombre, ubicacion_p, ubicacion_z, horario_d, horario_n, capacidad, gastronomia, precio, notas, j_mesa, fecha, telefono,parrillada,habitaciones) values ('${req.body.p_nombre}','${req.body.p_ubicacion_p}','${req.body.p_ubicacion_z}',${(req.body.p_horario_d)?'true':'false'},${(req.body.p_horario_n)?'true':'false'},${req.body.p_capacidad},${(req.body.p_gastronomia)?'true':'false'},${req.body.p_precio},'${req.body.p_notas}',${(req.body.p_juegos)?'true':'false'},'19-12-2023','${req.body.p_telefono}',${(req.body.p_parrillada)?'true':'false'},${(req.body.p_habitaciones)?'true':'false'})`);                       
+        console.log("Insertando en tabla Piscina.")
         req.files.forEach(async(element) => {
             await pool.query(`insert into p_imagenes (path,nombre,owner) values ('${element.filename}','${element.originalname}','${req.body.p_nombre}')`);
         });
-       
+        console.log("Insertando en tabla de imagenes Piscina.")
         res.send("Informacion Recibida.")
     })
 router.post('/api/fiesta',newupload.array('f_imagenes'),async (req,res,next)=>
